@@ -1,7 +1,8 @@
+import { Outlet } from 'react-router-dom';
+
 import { Logo } from '@/view/components/Logo';
 
 import ilustration from '@/assets/images/ilustration.png';
-import { Outlet } from 'react-router-dom';
 
 export const AuthLayout = () => (
   <div className="w-full flex h-full ">
@@ -15,7 +16,6 @@ export const AuthLayout = () => (
       <img
         className="object-cover w-full max-w-[650px] max-h-[960px] h-full select-none rounded-[32px]"
         src={ilustration}
-        alt=""
       />
       <div className="max-w-[650px] p-10 rounded-b-[32px] bg-white absolute bottom-8 ">
         <Logo className="text-teal-900 h-8" />
