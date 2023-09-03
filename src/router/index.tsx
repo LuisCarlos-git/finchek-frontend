@@ -1,17 +1,27 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-import { RoutePaths } from '@/types/Routes';
+import { RoutePaths } from '@/app/types/Routes';
+
 import { AuthGuard } from './guards/AuthGuard';
+
+import { Login } from '@/view/pages/Login';
+import { Register } from '@/view/pages/Register';
+import { Dashboard } from '@/view/pages/Dashboard';
+
+import { AuthLayout } from '@/view/_layouts/Auth';
 
 export const Router = () => (
   <BrowserRouter>
     <Routes>
       <Route element={<AuthGuard />}>
-        <Route path={RoutePaths.LOGIN} element={<h1>login</h1>} />
-        <Route path={RoutePaths.REGISTER} element={<h1>register</h1>} />
+        <Route element={<AuthLayout />}>
+          <Route path={RoutePaths.LOGIN} element={<Login />} />
+          <Route path={RoutePaths.REGISTER} element={<Register />} />
+        </Route>
       </Route>
+
       <Route element={<AuthGuard isPrivate />}>
-        <Route path={RoutePaths.DASHBOARD} element={<h1>dashboard</h1>} />
+        <Route path={RoutePaths.DASHBOARD} element={<Dashboard />} />
       </Route>
     </Routes>
   </BrowserRouter>

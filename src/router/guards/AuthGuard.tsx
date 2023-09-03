@@ -1,4 +1,4 @@
-import { RoutePaths } from '@/types/Routes';
+import { RoutePaths } from '@/app/types/Routes';
 import { Navigate, Outlet } from 'react-router-dom';
 
 interface AuthGuardProps {
