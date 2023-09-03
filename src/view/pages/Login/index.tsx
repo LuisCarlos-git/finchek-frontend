@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { RoutePaths } from '@/app/types/Routes';
+import { RoutePaths } from '@/app/Enums/Routes';
 
 import { TextField } from '@/view/components/TextField';
 import { Button } from '@/view/components/Button';
+
 import { useLoginController } from './useLoginController';
 
 export const Login = () => {

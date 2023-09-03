@@ -1,5 +1,6 @@
-import { RoutePaths } from '@/app/types/Routes';
 import { Navigate, Outlet } from 'react-router-dom';
+
+import { RoutePaths } from '@/app/Enums/Routes';
 
 interface AuthGuardProps {
   isPrivate?: boolean;

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import { RoutePaths } from '@/app/Enums/Routes';
+
 import { Button } from '@/view/components/Button';
 import { TextField } from '@/view/components/TextField';
 
-import { RoutePaths } from '@/app/types/Routes';
 import { useRegisterController } from './useRegisterController';
 
 export const Register = () => {
