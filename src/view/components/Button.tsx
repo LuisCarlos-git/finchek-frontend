@@ -1,9 +1,9 @@
 import { cn } from '@/app/utils/cn';
 import { type ComponentProps } from 'react';
 
-interface ButtonProps extends ComponentProps<'button'> {}
+interface IButtonProps extends ComponentProps<'button'> {}
 
-export const Button = ({ className, ...props }: ButtonProps) => (
+export const Button = ({ className, ...props }: IButtonProps) => (
   <button
     {...props}
     className={cn(

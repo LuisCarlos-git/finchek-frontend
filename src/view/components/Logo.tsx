@@ -1,8 +1,8 @@
-interface LogoProps {
+interface ILogoProps {
   className: string;
 }
 
-export const Logo = ({ className }: LogoProps) => (
+export const Logo = ({ className }: ILogoProps) => (
   <svg
     className={className}
     viewBox="0 0 139 32"

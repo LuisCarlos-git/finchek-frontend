@@ -1,18 +1,18 @@
-export interface SignUpParams {
+export interface ISignUpParams {
   name: string;
   email: string;
   password: string;
 }
 
-export interface SignUpResponse {
+export interface ISignUpResponse {
   accessToken: string;
 }
 
-export interface SignInParams {
+export interface ISignInParams {
   email: string;
   password: string;
 }
 
-export interface SignInResponse {
+export interface ISignInResponse {
   accessToken: string;
 }

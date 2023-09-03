@@ -2,11 +2,11 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { RoutePaths } from '@/app/Enums/Routes';
 
-interface AuthGuardProps {
+interface IAuthGuardProps {
   isPrivate?: boolean;
 }
 
-export const AuthGuard = ({ isPrivate = false }: AuthGuardProps) => {
+export const AuthGuard = ({ isPrivate = false }: IAuthGuardProps) => {
   const signedIn = false;
 
   if (!signedIn && isPrivate) {

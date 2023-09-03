@@ -1,17 +1,17 @@
 import { Endpoints } from '../Enums/Endpoints';
 
 import {
-  type SignUpParams,
-  type SignUpResponse,
-  type SignInParams,
-  type SignInResponse
+  type ISignUpParams,
+  type ISignUpResponse,
+  type ISignInParams,
+  type ISignInResponse
 } from '../interfaces/services/AuthService';
 
 import { httpClient } from './httpClient';
 
 export class AuthServices {
-  async signUp(params: SignUpParams): Promise<SignUpResponse> {
-    const { data } = await httpClient.post<SignUpResponse>(
+  async signUp(params: ISignUpParams): Promise<ISignUpResponse> {
+    const { data } = await httpClient.post<ISignUpResponse>(
       Endpoints.SIGNUP,
       params
     );
@@ -19,8 +19,8 @@ export class AuthServices {
     return data;
   }
 
-  async signIn(params: SignInParams): Promise<SignInResponse> {
-    const { data } = await httpClient.post<SignInResponse>(
+  async signIn(params: ISignInParams): Promise<ISignInResponse> {
+    const { data } = await httpClient.post<ISignInResponse>(
       Endpoints.SIGNIN,
       params
     );

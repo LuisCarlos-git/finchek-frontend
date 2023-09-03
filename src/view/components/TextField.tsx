@@ -3,12 +3,12 @@ import { CrossCircledIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/app/utils/cn';
 
-interface TextFieldProps extends ComponentProps<'input'> {
+interface ITextFieldProps extends ComponentProps<'input'> {
   name: string;
   error?: string;
 }
 
-export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
   ({ placeholder, name, id, error, className, ...props }, ref) => {
     const inputId = id ?? name;
 
