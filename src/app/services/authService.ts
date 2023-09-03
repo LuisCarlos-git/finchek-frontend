@@ -5,7 +5,7 @@ import {
   type SignUpResponse,
   type SignInParams,
   type SignInResponse
-} from '../types/services/AuthService';
+} from '../interfaces/services/AuthService';
 
 import { httpClient } from './httpClient';
 
