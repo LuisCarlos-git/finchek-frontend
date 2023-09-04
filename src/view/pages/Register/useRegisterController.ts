@@ -1,10 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 
 import {
   registerSchema,
   type RegisterFormValues
 } from '@/app/formSchemas/register';
+import { type ISignUpParams } from '@/app/interfaces/services/AuthService';
+
+import { authServices } from '@/app/services/authService';
+
+import { MutationKeys } from '@/app/Enums/MutationKeys';
+import { toast } from 'react-hot-toast';
 
 export const useRegisterController = () => {
   const {
@@ -15,15 +22,26 @@ export const useRegisterController = () => {
     resolver: zodResolver(registerSchema)
   });
 
+  const { mutateAsync, isLoading } = useMutation({
+    mutationKey: [MutationKeys.SIGNUP],
+    mutationFn: async (data: ISignUpParams) => await authServices.signUp(data)
+  });
+
   const handleSubmit = hookFormHandleSubmit(
-    (formValues: RegisterFormValues) => {
-      console.log(formValues);
+    async (formValues: RegisterFormValues) => {
+      try {
+        const { accessToken } = await mutateAsync(formValues);
+        console.log({ accessToken });
+      } catch (err) {
+        toast.error('Ocorreu um erro ao criar sua conta!');
+      }
     }
   );
 
   return {
     handleSubmit,
     register,
-    errors
+    errors,
+    isLoading
   };
 };

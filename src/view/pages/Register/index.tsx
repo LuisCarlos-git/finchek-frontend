@@ -8,7 +8,7 @@ import { TextField } from '@/view/components/TextField';
 import { useRegisterController } from './useRegisterController';
 
 export const Register = () => {
-  const { errors, handleSubmit, register } = useRegisterController();
+  const { errors, handleSubmit, register, isLoading } = useRegisterController();
   return (
     <div>
       <div className="flex justify-center items-center flex-col">
@@ -51,7 +51,9 @@ export const Register = () => {
           {...register('password')}
         />
 
-        <Button className="mt-2">Criar conta</Button>
+        <Button className="mt-2" isLoading={isLoading}>
+          Criar conta
+        </Button>
       </form>
     </div>
   );

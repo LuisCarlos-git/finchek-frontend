@@ -6,11 +6,13 @@ import {
   type ISignInParams,
   type ISignInResponse
 } from '../interfaces/services/AuthService';
+import { sleep } from '../utils/sleep';
 
 import { httpClient } from './httpClient';
 
 export class AuthServices {
   async signUp(params: ISignUpParams): Promise<ISignUpResponse> {
+    await sleep();
     const { data } = await httpClient.post<ISignUpResponse>(
       Endpoints.SIGNUP,
       params

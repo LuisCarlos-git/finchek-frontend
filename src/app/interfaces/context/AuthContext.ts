@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
 export interface IAuthContext {
-  signed: boolean;
+  signedIn: boolean;
 }
 
 export interface IAuthProviderProps {
