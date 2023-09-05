@@ -8,7 +8,7 @@ import { Button } from '@/view/components/Button';
 import { useLoginController } from './useLoginController';
 
 export const Login = () => {
-  const { handleSubmit, register, errors } = useLoginController();
+  const { handleSubmit, register, errors, isLoading } = useLoginController();
 
   return (
     <div>
@@ -45,7 +45,9 @@ export const Login = () => {
           {...register('password')}
         />
 
-        <Button className="mt-2">Entrar</Button>
+        <Button className="mt-2" isLoading={isLoading}>
+          Entrar
+        </Button>
       </form>
     </div>
   );

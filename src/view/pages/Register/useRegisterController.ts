@@ -1,17 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+
+import { authServices } from '@/app/services/authService';
 
 import {
   registerSchema,
   type RegisterFormValues
 } from '@/app/formSchemas/register';
 import { type ISignUpParams } from '@/app/interfaces/services/AuthService';
-
-import { authServices } from '@/app/services/authService';
-
-import { MutationKeys } from '@/app/Enums/MutationKeys';
-import { toast } from 'react-hot-toast';
+import { MutationKeys } from '@/app/constants/queryKeys';
 
 export const useRegisterController = () => {
   const {
@@ -23,7 +22,7 @@ export const useRegisterController = () => {
   });
 
   const { mutateAsync, isLoading } = useMutation({
-    mutationKey: [MutationKeys.SIGNUP],
+    mutationKey: MutationKeys.SIGNUP,
     mutationFn: async (data: ISignUpParams) => await authServices.signUp(data)
   });
 

@@ -22,6 +22,8 @@ export class AuthServices {
   }
 
   async signIn(params: ISignInParams): Promise<ISignInResponse> {
+    await sleep();
+
     const { data } = await httpClient.post<ISignInResponse>(
       Endpoints.SIGNIN,
       params

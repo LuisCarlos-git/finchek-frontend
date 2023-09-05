@@ -1,12 +1,28 @@
-import { createContext } from 'react';
+import { createContext, useCallback, useState } from 'react';
 
 import {
   type IAuthProviderProps,
   type IAuthContext
 } from '../interfaces/context/AuthContext';
 
-const AuthContext = createContext<IAuthContext | null>(null);
+export const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
-  return <AuthContext.Provider value={null}>{children}</AuthContext.Provider>;
+  const [signedIn, setSignedIn] = useState(false);
+
+  const signIn = useCallback((accessToken: string) => {
+    console.log({ accessToken });
+    setSignedIn(true);
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        signedIn,
+        signIn
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
