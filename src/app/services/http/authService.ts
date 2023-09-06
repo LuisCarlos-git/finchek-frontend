@@ -1,12 +1,12 @@
-import { Endpoints } from '../Enums/Endpoints';
+import { Endpoints } from '../../Enums/Endpoints';
 
 import {
   type ISignUpParams,
   type ISignUpResponse,
   type ISignInParams,
   type ISignInResponse
-} from '../interfaces/services/AuthService';
-import { sleep } from '../utils/sleep';
+} from '../../interfaces/services/AuthService';
+import { sleep } from '../../utils/sleep';
 
 import { httpClient } from './httpClient';
 
