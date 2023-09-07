@@ -6,7 +6,7 @@ import {
   registerSchema,
   type RegisterFormValues
 } from '@/app/formSchemas/register';
-import { useSignUpMutation } from '@/app/hooks/querys/useSignUpMutation';
+import { useSignUpMutation } from '@/app/hooks/queries/useSignUpMutation';
 import { useAuth } from '@/app/hooks/context/useAuth';
 
 export const useRegisterController = () => {

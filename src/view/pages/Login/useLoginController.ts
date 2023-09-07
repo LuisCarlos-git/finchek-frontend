@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormValues } from '@/app/formSchemas/login';
 
 import { useAuth } from '@/app/hooks/context/useAuth';
-import { useSignInMutation } from '@/app/hooks/querys/useSignInMutation';
+import { useSignInMutation } from '@/app/hooks/queries/useSignInMutation';
 
 export const useLoginController = () => {
   const { signIn } = useAuth();
