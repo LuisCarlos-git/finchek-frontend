@@ -1,9 +1,14 @@
 import { iconsMap } from './iconsMap';
 
-interface CategoryIconProps {
-  type: 'income' | 'expense';
-  category?: string;
-}
+type CategoryIconProps =
+  | {
+      type: 'income';
+      category?: keyof typeof iconsMap.income;
+    }
+  | {
+      type: 'expense';
+      category?: keyof typeof iconsMap.expense;
+    };
 
 export function CategoryIcon({ type, category }: CategoryIconProps) {
   const Icon =
