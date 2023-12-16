@@ -1,9 +1,9 @@
 import { EyeIcon } from '@/assets/icons/EyeIcon';
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { AccountCart } from './AccountCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
+import { AccountsNavigation } from './AccountNavigation';
 
 export const Accounts = () => {
   return (
@@ -20,21 +20,17 @@ export const Accounts = () => {
         </div>
       </div>
       <div className="flex-1 flex justify-end flex-col">
-        <div className="flex items-center justify-between">
-          <strong className="text-white tracking-[-1px] text-lg">
-            Minhas contas
-          </strong>
-          <div>
-            <button className="py-3 pl-2.5 pr-3.5 rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40">
-              <ChevronLeftIcon className="text-white w-6 h-6" />
-            </button>
-            <button className="py-3 pl-2.5 pr-3.5 rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40">
-              <ChevronRightIcon className="text-white w-6 h-6" />
-            </button>
-          </div>
-        </div>
-        <div className="mt-4">
+        <div>
           <Swiper spaceBetween={16} slidesPerView={2.1}>
+            <div
+              slot="container-start"
+              className="flex items-center justify-between mb-4"
+            >
+              <strong className="text-white tracking-[-1px] text-lg">
+                Minhas contas
+              </strong>
+              <AccountsNavigation />
+            </div>
             <SwiperSlide>
               <AccountCart balance={1000} color="#7952f2" name="Nubank" />
             </SwiperSlide>
