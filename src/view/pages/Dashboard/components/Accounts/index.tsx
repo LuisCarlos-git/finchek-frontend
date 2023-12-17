@@ -1,11 +1,14 @@
-import { EyeIcon } from '@/assets/icons/EyeIcon';
-import { AccountCart } from './AccountCard';
+import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-import { AccountsNavigation } from './AccountNavigation';
+import { EyeIcon } from '@/assets/icons/EyeIcon';
+
+import { AccountCart } from '../AccountCard';
+import { AccountsNavigation } from '../AccountNavigation';
+import { useAccountsController } from './useAccountsController';
 
 export const Accounts = () => {
+  const { setSliderState, sliderState } = useAccountsController();
   return (
     <section className="bg-teal-900 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
       <div>
@@ -21,7 +24,21 @@ export const Accounts = () => {
       </div>
       <div className="flex-1 flex justify-end flex-col">
         <div>
-          <Swiper spaceBetween={16} slidesPerView={2.1}>
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={1.1}
+            breakpoints={{
+              500: {
+                slidesPerView: 2.1
+              }
+            }}
+            onSlideChange={(ev) => {
+              setSliderState({
+                isBeginning: ev.isBeginning,
+                isEnd: ev.isEnd
+              });
+            }}
+          >
             <div
               slot="container-start"
               className="flex items-center justify-between mb-4"
@@ -29,7 +46,10 @@ export const Accounts = () => {
               <strong className="text-white tracking-[-1px] text-lg">
                 Minhas contas
               </strong>
-              <AccountsNavigation />
+              <AccountsNavigation
+                isBeginning={sliderState.isBeginning}
+                isEnd={sliderState.isEnd}
+              />
             </div>
             <SwiperSlide>
               <AccountCart balance={1000} color="#7952f2" name="Nubank" />
