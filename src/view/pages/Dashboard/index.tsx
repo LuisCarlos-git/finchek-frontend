@@ -9,7 +9,7 @@ export const Dashboard = () => (
       <Logo className="text-teal-900 h-6" />
       <UserMenu />
     </header>
-    <main className=" flex flex-1 flex-col md:flex-row gap-4">
+    <main className=" flex flex-1 flex-col md:flex-row gap-4 max-h-full">
       <div className="w-full md:w-1/2">
         <Accounts />
       </div>
