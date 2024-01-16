@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
 interface IConditionalRenderProps {
-  fallback: JSX.Element;
+  fallback: JSX.Element | null;
   condition: boolean;
   children: ReactNode;
 }

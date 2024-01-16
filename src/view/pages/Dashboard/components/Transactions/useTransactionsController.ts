@@ -4,6 +4,8 @@ export function useTransactionsController() {
   const { areValuesVisible } = useDashboard();
   return {
     areValuesVisible,
-    isLoading: false
+    isInitialLoading: false,
+    isFetching: false,
+    transactions: []
   };
 }

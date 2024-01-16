@@ -13,6 +13,7 @@ export const useAccountsController = () => {
     setSliderState,
     areValuesVisible,
     handleToggleVisibleValues,
-    isLoading: false
+    isLoading: false,
+    accounts: []
   };
 };

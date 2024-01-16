@@ -10,6 +10,7 @@ import { formatCurrencyToBRL } from '@/app/utils/formatCurrencyToBRL';
 import { cn } from '@/app/utils/cn';
 import { ConditionalRender } from '@/view/components/ConditionalRender';
 import { Spinner } from '@/view/components/Spinner';
+import { EmptyAccounts } from './components/EmptyAccounts';
 
 export const Accounts = () => {
   const {
@@ -17,6 +18,7 @@ export const Accounts = () => {
     sliderState,
     areValuesVisible,
     handleToggleVisibleValues,
+    accounts,
     isLoading
   } = useAccountsController();
   return (
@@ -51,45 +53,50 @@ export const Accounts = () => {
           </div>
         </div>
         <div className="flex-1 flex justify-end flex-col">
-          <div>
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={1.1}
-              breakpoints={{
-                500: {
-                  slidesPerView: 2.1
-                }
-              }}
-              onSlideChange={(ev) => {
-                setSliderState({
-                  isBeginning: ev.isBeginning,
-                  isEnd: ev.isEnd
-                });
-              }}
-            >
-              <div
-                slot="container-start"
-                className="flex items-center justify-between mb-4"
+          <ConditionalRender
+            condition={accounts.length <= 0}
+            fallback={<EmptyAccounts />}
+          >
+            <div>
+              <Swiper
+                spaceBetween={16}
+                slidesPerView={1.1}
+                breakpoints={{
+                  500: {
+                    slidesPerView: 2.1
+                  }
+                }}
+                onSlideChange={(ev) => {
+                  setSliderState({
+                    isBeginning: ev.isBeginning,
+                    isEnd: ev.isEnd
+                  });
+                }}
               >
-                <strong className="text-white tracking-[-1px] text-lg">
-                  Minhas contas
-                </strong>
-                <AccountsNavigation
-                  isBeginning={sliderState.isBeginning}
-                  isEnd={sliderState.isEnd}
-                />
-              </div>
-              <SwiperSlide>
-                <AccountCart balance={1000} color="#7952f2" name="Nubank" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <AccountCart balance={1000} color="#eb7a10" name="Itau" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <AccountCart balance={1000} color="#6e6d70" name="Xp" />
-              </SwiperSlide>
-            </Swiper>
-          </div>
+                <div
+                  slot="container-start"
+                  className="flex items-center justify-between mb-4"
+                >
+                  <strong className="text-white tracking-[-1px] text-lg">
+                    Minhas contas
+                  </strong>
+                  <AccountsNavigation
+                    isBeginning={sliderState.isBeginning}
+                    isEnd={sliderState.isEnd}
+                  />
+                </div>
+                <SwiperSlide>
+                  <AccountCart balance={1000} color="#7952f2" name="Nubank" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <AccountCart balance={1000} color="#eb7a10" name="Itau" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <AccountCart balance={1000} color="#6e6d70" name="Xp" />
+                </SwiperSlide>
+              </Swiper>
+            </div>
+          </ConditionalRender>
         </div>
       </ConditionalRender>
     </section>
