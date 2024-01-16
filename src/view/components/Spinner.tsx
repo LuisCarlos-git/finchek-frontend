@@ -1,7 +1,16 @@
-export const Spinner = () => (
+import { cn } from '@/app/utils/cn';
+
+interface ISpinnerProps {
+  className?: string;
+}
+
+export const Spinner = ({ className }: ISpinnerProps) => (
   <svg
     aria-hidden="true"
-    className="w-8 h-8 text-gray-400 animate-spin fill-teal-900"
+    className={cn(
+      'w-8 h-8 text-gray-400 animate-spin fill-teal-900',
+      className && className
+    )}
     viewBox="0 0 100 101"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
