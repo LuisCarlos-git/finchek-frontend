@@ -6,7 +6,7 @@ import {
 } from '../interfaces/context/AuthContext';
 
 import { storage } from '../services/storage';
-import { StorageKeys } from '../Enums/StorageKeys';
+import { StorageKeys } from '../enums/StorageKeys';
 import { useMeQuery } from '../hooks/queries/useMeQuery';
 import { httpClient } from '../services/http/httpClient';
 import { ConditionalRender } from '@/view/components/ConditionalRender';

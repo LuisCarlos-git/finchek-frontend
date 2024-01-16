@@ -1,4 +1,4 @@
-import { Endpoints } from '../../Enums/Endpoints';
+import { Endpoints } from '../../enums/Endpoints';
 
 import {
   type ISignUpParams,

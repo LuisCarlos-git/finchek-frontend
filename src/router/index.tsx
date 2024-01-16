@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-import { RoutePaths } from '@/app/Enums/Routes';
+import { RoutePaths } from '@/app/enums/Routes';
 
 import { AuthGuard } from './guards/AuthGuard';
 

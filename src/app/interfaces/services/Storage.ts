@@ -1,4 +1,4 @@
-import { type StorageKeys } from '@/app/Enums/StorageKeys';
+import { type StorageKeys } from '@/app/enums/StorageKeys';
 
 export type Key = StorageKeys;
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { RoutePaths } from '@/app/Enums/Routes';
+import { RoutePaths } from '@/app/enums/Routes';
 
 import { Button } from '@/view/components/Button';
 import { TextField } from '@/view/components/TextField';

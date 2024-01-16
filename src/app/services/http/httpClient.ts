@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { env } from '../../utils/env';
 import { storage } from '../storage';
-import { StorageKeys } from '@/app/Enums/StorageKeys';
+import { StorageKeys } from '@/app/enums/StorageKeys';
 import { sleep } from '@/app/utils/sleep';
 
 export const httpClient = axios.create({
