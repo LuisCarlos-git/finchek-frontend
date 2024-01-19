@@ -3,26 +3,22 @@ import * as RdxDropdown from '@radix-ui/react-dropdown-menu';
 
 import { cn } from '@/app/utils/cn';
 
-interface ComponentWithChildren {
+interface DefaultPropsComponent {
   children: React.ReactNode;
+  className?: string;
 }
 
-interface ItemProps extends ComponentWithChildren {
-  className?: string;
+interface ItemProps extends DefaultPropsComponent {
   onSelect?: () => void;
 }
 
-interface ContentProps extends ComponentWithChildren {
-  className?: string;
-}
-
-function Root({ children }: ComponentWithChildren) {
+function Root({ children }: Omit<DefaultPropsComponent, 'className'>) {
   return <RdxDropdown.Root>{children}</RdxDropdown.Root>;
 }
 
-function Trigger({ children }: ComponentWithChildren) {
+function Trigger({ children, className }: DefaultPropsComponent) {
   return (
-    <RdxDropdown.Trigger className="outline-none">
+    <RdxDropdown.Trigger className={cn('outline-none', className)}>
       {children}
     </RdxDropdown.Trigger>
   );
@@ -33,7 +29,7 @@ function Item({ children, className, onSelect }: ItemProps) {
     <RdxDropdown.Item
       onSelect={onSelect}
       className={cn(
-        ' cursor-pointer min-h-[48px] outline-none flex items-center py-2 px-4 text-sm text-gray-800transition-colors rounded-2xl data-[highlighted]:bg-gray-50',
+        'cursor-pointer min-h-[48px] outline-none flex items-center py-2 px-4 text-sm text-gray-800transition-colors rounded-2xl data-[highlighted]:bg-gray-50',
         className
       )}
     >
@@ -42,13 +38,13 @@ function Item({ children, className, onSelect }: ItemProps) {
   );
 }
 
-function Content({ children, className }: ContentProps) {
+function Content({ children, className }: DefaultPropsComponent) {
   return (
     <RdxDropdown.Portal>
       <RdxDropdown.Content
         sideOffset={4}
         className={cn(
-          'rounded-2xl p-2 bg-white space-y-2 shadow-md data-[side=top]:animate-slide-up-and-fade data-[side=bottom]:animate-slide-down-and-fade',
+          'z-50 rounded-2xl p-2 bg-white space-y-2 shadow-md data-[state=open]:animate-slide-up-and-fade data-[state=closed]:animate-slide-down-and-fade',
           className
         )}
       >
