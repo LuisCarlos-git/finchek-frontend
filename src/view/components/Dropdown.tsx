@@ -3,20 +3,20 @@ import * as RdxDropdown from '@radix-ui/react-dropdown-menu';
 
 import { cn } from '@/app/utils/cn';
 
-interface DefaultPropsComponent {
+interface IDefaultPropsComponent {
   children: React.ReactNode;
   className?: string;
 }
 
-interface ItemProps extends DefaultPropsComponent {
+interface ItemProps extends IDefaultPropsComponent {
   onSelect?: () => void;
 }
 
-function Root({ children }: Omit<DefaultPropsComponent, 'className'>) {
+function Root({ children }: Omit<IDefaultPropsComponent, 'className'>) {
   return <RdxDropdown.Root>{children}</RdxDropdown.Root>;
 }
 
-function Trigger({ children, className }: DefaultPropsComponent) {
+function Trigger({ children, className }: IDefaultPropsComponent) {
   return (
     <RdxDropdown.Trigger className={cn('outline-none', className)}>
       {children}
@@ -38,7 +38,7 @@ function Item({ children, className, onSelect }: ItemProps) {
   );
 }
 
-function Content({ children, className }: DefaultPropsComponent) {
+function Content({ children, className }: IDefaultPropsComponent) {
   return (
     <RdxDropdown.Portal>
       <RdxDropdown.Content

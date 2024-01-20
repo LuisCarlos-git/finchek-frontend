@@ -13,6 +13,7 @@ import { useTransactionsController } from './useTransactionsController';
 import { EmptyState } from './components/EmptyState';
 import { TransactionsSpinner } from './components/TransactionsSpinner';
 import { TransactionsTypeDropdown } from './components/TransactionsDropdown';
+import { Fab } from '../Fab';
 
 export const Transactions = () => {
   const { areValuesVisible, isInitialLoading, transactions, isFetching } =
@@ -80,6 +81,8 @@ export const Transactions = () => {
           </ConditionalRender>
         </ConditionalRender>
       </ConditionalRender>
+
+      <Fab />
     </section>
   );
 };

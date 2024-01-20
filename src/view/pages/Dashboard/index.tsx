@@ -3,6 +3,7 @@ import { UserMenu } from '@/view/components/UserMenu';
 import { Accounts } from './components/Accounts';
 import { Transactions } from './components/Transactions';
 import { DashboardProvider } from '@/app/context/DashboardContext';
+import { Dialog } from '@/view/components/Dialog';
 
 export const Dashboard = () => (
   <DashboardProvider>
@@ -20,5 +21,8 @@ export const Dashboard = () => (
         </div>
       </main>
     </div>
+    <Dialog title="header" open>
+      test
+    </Dialog>
   </DashboardProvider>
 );
