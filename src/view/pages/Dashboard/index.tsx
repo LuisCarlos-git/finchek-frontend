@@ -4,6 +4,7 @@ import { Accounts } from './components/Accounts';
 import { Transactions } from './components/Transactions';
 import { DashboardProvider } from '@/app/context/DashboardContext';
 import { Fab } from './components/Fab';
+import { AddNewAccountDialog } from './Dialogs/AddNewAccountDialog';
 
 export const Dashboard = () => (
   <DashboardProvider>
@@ -23,5 +24,6 @@ export const Dashboard = () => (
     </div>
 
     <Fab />
+    <AddNewAccountDialog />
   </DashboardProvider>
 );

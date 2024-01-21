@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboard();
 
-  const [isOpenFilters, setIsOpenFilters] = useState(true);
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const handleToggleDialogFilters = useCallback(() => {
     setIsOpenFilters((prev) => !prev);

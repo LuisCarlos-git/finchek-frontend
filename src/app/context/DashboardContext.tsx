@@ -8,16 +8,23 @@ export const DashboardContext = createContext<IDashboardContext | null>(null);
 
 export function DashboardProvider({ children }: IDashboardProvider) {
   const [areValuesVisible, setAreValueVisible] = useState(false);
+  const [newAccountDialogOpen, setNewAccountDialogOpen] = useState(true);
 
   const handleToggleVisibleValues = useCallback(() => {
     setAreValueVisible((prev) => !prev);
+  }, []);
+
+  const handleToggleNewAccountDialog = useCallback(() => {
+    setNewAccountDialogOpen((prev) => !prev);
   }, []);
 
   return (
     <DashboardContext.Provider
       value={{
         areValuesVisible,
-        handleToggleVisibleValues
+        handleToggleVisibleValues,
+        handleToggleNewAccountDialog,
+        newAccountDialogOpen
       }}
     >
       {children}

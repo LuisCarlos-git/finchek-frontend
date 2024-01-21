@@ -19,7 +19,8 @@ export const Accounts = () => {
     areValuesVisible,
     handleToggleVisibleValues,
     accounts,
-    isLoading
+    isLoading,
+    handleToggleNewAccountDialog
   } = useAccountsController();
   return (
     <section className="bg-teal-900 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
@@ -55,7 +56,9 @@ export const Accounts = () => {
         <div className="flex-1 flex justify-end flex-col">
           <ConditionalRender
             condition={accounts.length <= 0}
-            fallback={<EmptyAccounts />}
+            fallback={
+              <EmptyAccounts onAddNewAccount={handleToggleNewAccountDialog} />
+            }
           >
             <div>
               <Swiper
