@@ -13,21 +13,32 @@ import { useTransactionsController } from './useTransactionsController';
 import { EmptyState } from './components/EmptyState';
 import { TransactionsSpinner } from './components/TransactionsSpinner';
 import { TransactionsTypeDropdown } from './components/TransactionsDropdown';
-import { Fab } from '../Fab';
+import { FiltersDialog } from './components/FiltersDialog';
 
 export const Transactions = () => {
-  const { areValuesVisible, isInitialLoading, transactions, isFetching } =
-    useTransactionsController();
+  const {
+    areValuesVisible,
+    isInitialLoading,
+    transactions,
+    isFetching,
+    isOpenFilters,
+    handleToggleDialogFilters
+  } = useTransactionsController();
   return (
     <section className="bg-gray-100 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
       <ConditionalRender
         condition={isInitialLoading}
         fallback={<TransactionsSpinner />}
       >
+        <FiltersDialog
+          open={isOpenFilters}
+          onClose={handleToggleDialogFilters}
+        />
+
         <header>
           <div className="flex justify-between w-full items-center">
             <TransactionsTypeDropdown />
-            <button>
+            <button onClick={handleToggleDialogFilters}>
               <FilterIcon />
             </button>
           </div>
@@ -81,8 +92,6 @@ export const Transactions = () => {
           </ConditionalRender>
         </ConditionalRender>
       </ConditionalRender>
-
-      <Fab />
     </section>
   );
 };

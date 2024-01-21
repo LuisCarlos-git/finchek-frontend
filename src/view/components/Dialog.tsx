@@ -8,11 +8,18 @@ interface IDialogProps {
   children: React.ReactNode;
   title: string;
   rightAction?: React.ReactNode;
+  onClose: () => void;
 }
 
-export function Dialog({ children, open, title, rightAction }: IDialogProps) {
+export function Dialog({
+  onClose,
+  children,
+  open,
+  title,
+  rightAction
+}: IDialogProps) {
   return (
-    <RdxDialog.Root open={open}>
+    <RdxDialog.Root open={open} onOpenChange={onClose}>
       <RdxDialog.Portal>
         <RdxDialog.Overlay
           className={cn(
@@ -30,11 +37,14 @@ export function Dialog({ children, open, title, rightAction }: IDialogProps) {
           )}
         >
           <header className="flex items-center justify-between h-12 text-gray-800">
-            <button className="w-12 h-12">
+            <button
+              onClick={onClose}
+              className="w-12 h-12 flex items-center justify-center outline-none"
+            >
               <Cross2Icon className="w-6 h-6" />
             </button>
             <span className="text-lg tracking-[-1px] font-bold">{title}</span>
-            <div className="w-12 h-12 flex items-center justify-center">
+            <div className="w-12 h-12 flex items-center justify-center outline-none">
               {rightAction}
             </div>
           </header>
