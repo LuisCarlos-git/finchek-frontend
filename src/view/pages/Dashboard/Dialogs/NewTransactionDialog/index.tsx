@@ -5,6 +5,7 @@ import { TextField } from '@/view/components/TextField';
 import { TextFieldCurrecy } from '@/view/components/TextFieldCurrency';
 import { useNewTransactionDialogController } from './useNewTransactionDialogController';
 import { BankAcountsType } from '@/app/enums/BankAccountsType';
+import { DatePickerField } from '@/view/components/DatePickerField';
 
 export function NewTransactionDialog() {
   const {
@@ -53,6 +54,7 @@ export function NewTransactionDialog() {
               { value: BankAcountsType.CASH, label: 'Dinheiro físico' }
             ]}
           />
+          <DatePickerField />
         </div>
 
         <Button className="w-full mt-8" type="submit">
