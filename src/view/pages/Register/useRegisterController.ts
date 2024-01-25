@@ -12,17 +12,13 @@ import { useAuth } from '@/app/hooks/context/useAuth';
 export const useRegisterController = () => {
   const { signIn } = useAuth();
 
-  const {
-    register,
-    handleSubmit: hookFormHandleSubmit,
-    formState: { errors }
-  } = useForm<RegisterFormValues>({
+  const methods = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema)
   });
 
   const { mutateAsync, isLoading } = useSignUpMutation();
 
-  const handleSubmit = hookFormHandleSubmit(
+  const handleSubmit = methods.handleSubmit(
     async (formValues: RegisterFormValues) => {
       try {
         const { accessToken } = await mutateAsync(formValues);
@@ -35,8 +31,7 @@ export const useRegisterController = () => {
 
   return {
     handleSubmit,
-    register,
-    errors,
+    methods,
     isLoading
   };
 };

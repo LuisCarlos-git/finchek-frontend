@@ -6,9 +6,10 @@ import { Button } from '@/view/components/Button';
 import { TextField } from '@/view/components/TextField';
 
 import { useRegisterController } from './useRegisterController';
+import { FormProvider } from 'react-hook-form';
 
 export const Register = () => {
-  const { errors, handleSubmit, register, isLoading } = useRegisterController();
+  const { methods, handleSubmit, isLoading } = useRegisterController();
   return (
     <div>
       <div className="flex justify-center items-center flex-col">
@@ -28,33 +29,27 @@ export const Register = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col mt-[60px] gap-4">
-        <TextField
-          id="name"
-          type="text"
-          placeholder="Nome"
-          error={errors.name?.message}
-          {...register('name')}
-        />
-        <TextField
-          id="email"
-          type="email"
-          placeholder="E-mail"
-          error={errors.email?.message}
-          {...register('email')}
-        />
-        <TextField
-          id="password"
-          type="password"
-          placeholder="Senha"
-          error={errors.password?.message}
-          {...register('password')}
-        />
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit} className="flex flex-col mt-[60px] gap-4">
+          <TextField id="name" name="name" type="text" placeholder="Nome" />
+          <TextField
+            id="email"
+            type="email"
+            placeholder="E-mail"
+            name="email"
+          />
+          <TextField
+            id="password"
+            type="password"
+            placeholder="Senha"
+            name="password"
+          />
 
-        <Button className="mt-2" isLoading={isLoading}>
-          Criar conta
-        </Button>
-      </form>
+          <Button className="mt-2" isLoading={isLoading}>
+            Criar conta
+          </Button>
+        </form>
+      </FormProvider>
     </div>
   );
 };

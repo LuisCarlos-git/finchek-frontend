@@ -10,17 +10,13 @@ import { useSignInMutation } from '@/app/hooks/queries/useSignInMutation';
 export const useLoginController = () => {
   const { signIn } = useAuth();
 
-  const {
-    register,
-    handleSubmit: hookFormHandleSubmit,
-    formState: { errors }
-  } = useForm<LoginFormValues>({
+  const methods = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema)
   });
 
   const { mutateAsync, isLoading } = useSignInMutation();
 
-  const handleSubmit = hookFormHandleSubmit(
+  const handleSubmit = methods.handleSubmit(
     async (formValues: LoginFormValues) => {
       try {
         const { accessToken } = await mutateAsync(formValues);
@@ -33,8 +29,7 @@ export const useLoginController = () => {
 
   return {
     handleSubmit,
-    register,
-    errors,
+    methods,
     isLoading
   };
 };
