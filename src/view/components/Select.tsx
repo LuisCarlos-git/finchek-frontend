@@ -17,25 +17,29 @@ interface ISelectProps {
     value: string;
     label: string;
   }>;
+  onChange?: (value: string) => void;
+  value?: string;
 }
 
 export function Select({
   className,
   error,
   placeholder,
-  options
+  options,
+  onChange,
+  value
 }: ISelectProps) {
-  const [slectedValue, setSelectedValue] = useState('');
+  const [slectedValue, setSelectedValue] = useState(value ?? '');
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
+    onChange?.(value);
   };
   return (
     <div>
-      <RdxSelect.Root onValueChange={handleSelect}>
+      <RdxSelect.Root value={value} onValueChange={handleSelect}>
         <div className="relative">
           <label
-            htmlFor=""
             className={cn(
               'absolute z-10 top-1/2 -translate-y-1/2 left-3 pointer-events-none text-gray-700',
               slectedValue &&

@@ -8,6 +8,8 @@ import { useState } from 'react';
 interface IColorDropdownField {
   error?: string;
   className?: string;
+  onChange?: (value: string) => void;
+  value?: string;
 }
 
 interface Color {
@@ -32,11 +34,23 @@ const colors: Color[] = [
   { color: '#212529', bg: '#F8F9FA' }
 ];
 
-export function ColorDropdownField({ className, error }: IColorDropdownField) {
-  const [selectedColor, setSelectedColor] = useState<Color | null>(null);
+export function ColorDropdownField({
+  className,
+  error,
+  onChange,
+  value
+}: IColorDropdownField) {
+  const [selectedColor, setSelectedColor] = useState<Color | null>(() => {
+    if (!value) return null;
+
+    const defaultColor = colors.find((color) => color.color === value);
+
+    return defaultColor ?? null;
+  });
 
   const handleSelect = (color: Color) => {
     setSelectedColor(color);
+    onChange?.(color.color);
   };
 
   return (

@@ -2,7 +2,7 @@ import { Button } from '@/view/components/Button';
 import { Dialog } from '@/view/components/Dialog';
 import { Select } from '@/view/components/Select';
 import { TextField } from '@/view/components/TextField';
-import { TextFieldCurrecy } from '@/view/components/TextFieldCurrency';
+import { TextFieldCurrency } from '@/view/components/TextFieldCurrency';
 import { useNewTransactionDialogController } from './useNewTransactionDialogController';
 import { BankAcountsType } from '@/app/enums/BankAccountsType';
 import { DatePickerField } from '@/view/components/DatePickerField';
@@ -26,7 +26,7 @@ export function NewTransactionDialog() {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-lg text-gray-600 tracking-[0.5px]">R$</span>
-            <TextFieldCurrecy />
+            <TextFieldCurrency />
           </div>
           <span className="text-xs text-gray-600 tracking-[0.5px]">
             Valor {isExpense ? 'da despesa' : 'da receita'}
