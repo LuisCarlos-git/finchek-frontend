@@ -6,6 +6,7 @@ import { DashboardProvider } from '@/app/context/DashboardContext';
 import { Fab } from './components/Fab';
 import { AddNewAccountDialog } from './Dialogs/AddNewAccountDialog';
 import { NewTransactionDialog } from './Dialogs/NewTransactionDialog';
+import { EditAccountDialog } from './Dialogs/EditAccountDialog';
 
 export const Dashboard = () => (
   <DashboardProvider>
@@ -22,10 +23,10 @@ export const Dashboard = () => (
           <Transactions />
         </div>
       </main>
+      <Fab />
+      <AddNewAccountDialog />
+      <NewTransactionDialog />
+      <EditAccountDialog />
     </div>
-
-    <Fab />
-    <AddNewAccountDialog />
-    <NewTransactionDialog />
   </DashboardProvider>
 );

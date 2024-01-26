@@ -4,6 +4,6 @@ import { useMutation } from '@tanstack/react-query';
 export function useCreateBankAccount() {
   return useMutation({
     mutationKey: ['create-bank-account'],
-    mutationFn: bankAccountsService.createBankAccount
+    mutationFn: bankAccountsService.create
   });
 }

@@ -2,7 +2,10 @@ import { z } from 'zod';
 import { BankAcountsType } from '../enums/BankAccountsType';
 
 export const schema = z.object({
-  initialBalance: z.string().nonempty('Saldo inicial é obrigatório'),
+  initialBalance: z.union([
+    z.string().nonempty('Saldo inicial é obrigatório'),
+    z.number()
+  ]),
   name: z.string().nonempty('Nome da conta é obrigatório'),
   type: z.enum([
     BankAcountsType.CASH,
@@ -12,4 +15,4 @@ export const schema = z.object({
   color: z.string().nonempty('Cor é obrigatória')
 });
 
-export type CreateBankAccountFormValue = z.infer<typeof schema>;
+export type CreateOrUpdateBankAccountFormValues = z.infer<typeof schema>;

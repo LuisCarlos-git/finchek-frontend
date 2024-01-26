@@ -4,6 +4,7 @@ import {
   type IDashboardProvider,
   type TransactionType
 } from '../interfaces/context/DashboardContext';
+import { type IBankAccount } from '../interfaces/entities/BankAccount';
 
 export const DashboardContext = createContext<IDashboardContext | null>(null);
 
@@ -13,8 +14,12 @@ export function DashboardProvider({ children }: IDashboardProvider) {
 
   const [areValuesVisible, setAreValueVisible] = useState(false);
   const [newAccountDialogOpen, setNewAccountDialogOpen] = useState(false);
+  const [editAccountDialogOpen, setEditAccountDialogOpen] = useState(false);
   const [newTransactionDialogOpen, setNewTransactionDialogOpen] =
     useState(false);
+
+  const [bankAccountToEdit, setBankAccountToEdit] =
+    useState<IBankAccount | null>(null);
 
   const handleToggleVisibleValues = useCallback(() => {
     setAreValueVisible((prev) => !prev);
@@ -23,6 +28,14 @@ export function DashboardProvider({ children }: IDashboardProvider) {
   const handleToggleNewAccountDialog = useCallback(() => {
     setNewAccountDialogOpen((prev) => !prev);
   }, []);
+
+  const handleToggleEditAccountDialog = useCallback(
+    (accountToEdit: IBankAccount | null) => {
+      setEditAccountDialogOpen((prev) => !prev);
+      setBankAccountToEdit(accountToEdit);
+    },
+    []
+  );
 
   const handleToggleNewTransactionDialog = useCallback(
     (type: TransactionType | null) => {
@@ -40,10 +53,16 @@ export function DashboardProvider({ children }: IDashboardProvider) {
       handleToggleNewAccountDialog,
       handleToggleNewTransactionDialog,
       newTransactionDialogOpen,
-      transactionType
+      transactionType,
+      handleToggleEditAccountDialog,
+      editAccountDialogOpen,
+      bankAccountToEdit
     }),
     [
       areValuesVisible,
+      bankAccountToEdit,
+      editAccountDialogOpen,
+      handleToggleEditAccountDialog,
       handleToggleNewAccountDialog,
       handleToggleNewTransactionDialog,
       handleToggleVisibleValues,

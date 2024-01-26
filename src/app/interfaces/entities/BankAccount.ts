@@ -1,16 +1,10 @@
 import { type BankAcountsType } from '@/app/enums/BankAccountsType';
 
-export interface ICreateBankAccount {
-  name: string;
-  initialBalance: number;
-  color: string;
-  type: BankAcountsType;
-}
-
-export interface IUpdateBankAccountParams {
+export interface IBankAccount {
   id: string;
   name: string;
   initialBalance: number;
   color: string;
+  currentBalance: number;
   type: BankAcountsType;
 }

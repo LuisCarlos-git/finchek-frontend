@@ -21,7 +21,8 @@ export const Accounts = () => {
     accounts,
     isLoading,
     handleToggleNewAccountDialog,
-    currentBalance
+    currentBalance,
+    handleToggleEditAccountDialog
   } = useAccountsController();
   return (
     <section className="bg-teal-900 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
@@ -90,7 +91,13 @@ export const Accounts = () => {
                   />
                 </div>
                 {accounts.map((account) => (
-                  <SwiperSlide key={account.id}>
+                  <SwiperSlide
+                    role="button"
+                    key={account.id}
+                    onClick={() => {
+                      handleToggleEditAccountDialog(account);
+                    }}
+                  >
                     <AccountCart
                       balance={account.initialBalance}
                       color={account.color}

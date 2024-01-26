@@ -7,7 +7,8 @@ export const useAccountsController = () => {
     areValuesVisible,
     handleToggleVisibleValues,
     handleToggleNewAccountDialog,
-    newAccountDialogOpen
+    newAccountDialogOpen,
+    handleToggleEditAccountDialog
   } = useDashboard();
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
@@ -26,13 +27,14 @@ export const useAccountsController = () => {
 
   return {
     sliderState,
-    setSliderState,
-    areValuesVisible,
-    handleToggleVisibleValues,
-    isLoading,
     accounts: data,
-    handleToggleNewAccountDialog,
+    areValuesVisible,
+    isLoading,
     newAccountDialogOpen,
-    currentBalance
+    currentBalance,
+    handleToggleVisibleValues,
+    setSliderState,
+    handleToggleNewAccountDialog,
+    handleToggleEditAccountDialog
   };
 };

@@ -3,7 +3,7 @@ import {
   type CreateOrUpdateBankAccountFormValues
 } from '@/app/formSchemas/createBankAccount';
 import { useDashboard } from '@/app/hooks/context/useDashboard';
-import { useCreateBankAccount } from '@/app/hooks/queries/useCreateBankAccount';
+import { useUpdateBankAccount } from '@/app/hooks/queries/useUpdateBankAccont';
 import { currencyStringToNumber } from '@/app/utils/currencyStringToNumber';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
@@ -11,15 +11,20 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-export function useAddNewAccountDialogController() {
-  const { newAccountDialogOpen, handleToggleNewAccountDialog } = useDashboard();
+export function useEditAccountDialog() {
+  const {
+    editAccountDialogOpen,
+    handleToggleEditAccountDialog,
+    bankAccountToEdit
+  } = useDashboard();
 
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitSuccessful },
     control,
-    reset
+    reset,
+    setValue
   } = useForm<CreateOrUpdateBankAccountFormValues>({
     resolver: zodResolver(schema)
   });
@@ -33,30 +38,41 @@ export function useAddNewAccountDialogController() {
     });
   }, [reset, isSubmitSuccessful]);
 
+  useEffect(() => {
+    if (!bankAccountToEdit) return;
+
+    setValue('color', bankAccountToEdit.color);
+    setValue('name', bankAccountToEdit.name);
+    setValue('initialBalance', bankAccountToEdit.initialBalance);
+    setValue('type', bankAccountToEdit.type);
+  }, [bankAccountToEdit, setValue]);
+
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useCreateBankAccount();
+  const { mutateAsync, isLoading } = useUpdateBankAccount();
 
   const handleSubmit = hookFormHandleSubmit(
     async (formValues: CreateOrUpdateBankAccountFormValues) => {
       try {
+        if (!bankAccountToEdit?.id) return;
         await mutateAsync({
           ...formValues,
-          initialBalance: currencyStringToNumber(formValues.initialBalance)
+          initialBalance: currencyStringToNumber(formValues.initialBalance),
+          id: bankAccountToEdit.id
         });
+        toast.success('Conta editada com sucesso!');
+        handleToggleEditAccountDialog(null);
         await queryClient.invalidateQueries({
           queryKey: ['get-all-bank-accounts']
         });
-        toast.success('Conta cadastrada com sucesso!');
-        handleToggleNewAccountDialog();
       } catch (e) {
-        toast.error('Erro ao cadastrar conta');
+        toast.error('Erro ao editar dados conta');
       }
     }
   );
 
   return {
-    newAccountDialogOpen,
-    handleToggleNewAccountDialog,
+    editAccountDialogOpen,
+    handleToggleEditAccountDialog,
     register,
     errors,
     control,
