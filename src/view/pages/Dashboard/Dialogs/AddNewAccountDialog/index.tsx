@@ -21,7 +21,8 @@ export function AddNewAccountDialog() {
     errors,
     register,
     control,
-    handleSubmit
+    handleSubmit,
+    isLoading
   } = useAddNewAccountDialogController();
   return (
     <Dialog
@@ -82,7 +83,7 @@ export function AddNewAccountDialog() {
           />
         </div>
 
-        <Button className="w-full mt-8" type="submit">
+        <Button isLoading={isLoading} className="w-full mt-8" type="submit">
           Criar
         </Button>
       </form>

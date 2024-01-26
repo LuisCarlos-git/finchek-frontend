@@ -20,7 +20,8 @@ export const Accounts = () => {
     handleToggleVisibleValues,
     accounts,
     isLoading,
-    handleToggleNewAccountDialog
+    handleToggleNewAccountDialog,
+    currentBalance
   } = useAccountsController();
   return (
     <section className="bg-teal-900 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
@@ -43,7 +44,7 @@ export const Accounts = () => {
                 !areValuesVisible && 'blur-md'
               )}
             >
-              {formatCurrencyToBRL(1000)}
+              {formatCurrencyToBRL(currentBalance)}
             </strong>
             <button
               onClick={handleToggleVisibleValues}
@@ -88,15 +89,15 @@ export const Accounts = () => {
                     isEnd={sliderState.isEnd}
                   />
                 </div>
-                <SwiperSlide>
-                  <AccountCart balance={1000} color="#7952f2" name="Nubank" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCart balance={1000} color="#eb7a10" name="Itau" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCart balance={1000} color="#6e6d70" name="Xp" />
-                </SwiperSlide>
+                {accounts.map((account) => (
+                  <SwiperSlide key={account.id}>
+                    <AccountCart
+                      balance={account.initialBalance}
+                      color={account.color}
+                      name={account.name}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </ConditionalRender>

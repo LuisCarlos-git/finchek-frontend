@@ -6,19 +6,23 @@ import {
   registerSchema,
   type RegisterFormValues
 } from '@/app/formSchemas/register';
-import { useSignUpMutation } from '@/app/hooks/queries/useSignUpMutation';
+import { useSignUp } from '@/app/hooks/queries/useSignUp';
 import { useAuth } from '@/app/hooks/context/useAuth';
 
 export const useRegisterController = () => {
   const { signIn } = useAuth();
 
-  const methods = useForm<RegisterFormValues>({
+  const {
+    register,
+    formState: { errors },
+    handleSubmit: hookformSubmit
+  } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema)
   });
 
-  const { mutateAsync, isLoading } = useSignUpMutation();
+  const { mutateAsync, isLoading } = useSignUp();
 
-  const handleSubmit = methods.handleSubmit(
+  const handleSubmit = hookformSubmit(
     async (formValues: RegisterFormValues) => {
       try {
         const { accessToken } = await mutateAsync(formValues);
@@ -31,7 +35,8 @@ export const useRegisterController = () => {
 
   return {
     handleSubmit,
-    methods,
+    register,
+    errors,
     isLoading
   };
 };

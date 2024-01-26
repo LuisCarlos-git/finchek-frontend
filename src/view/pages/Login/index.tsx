@@ -6,10 +6,9 @@ import { TextField } from '@/view/components/TextField';
 import { Button } from '@/view/components/Button';
 
 import { useLoginController } from './useLoginController';
-import { FormProvider } from 'react-hook-form';
 
 export const Login = () => {
-  const { handleSubmit, methods, isLoading } = useLoginController();
+  const { handleSubmit, isLoading, errors, register } = useLoginController();
 
   return (
     <div>
@@ -30,26 +29,26 @@ export const Login = () => {
         </div>
       </div>
 
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit} className="flex flex-col mt-[60px] gap-4">
-          <TextField
-            id="email"
-            type="email"
-            placeholder="E-mail"
-            name="email"
-          />
-          <TextField
-            id="password"
-            type="password"
-            placeholder="Senha"
-            name="password"
-          />
+      <form onSubmit={handleSubmit} className="flex flex-col mt-[60px] gap-4">
+        <TextField
+          id="email"
+          type="email"
+          placeholder="E-mail"
+          error={errors.email?.message}
+          {...register('email')}
+        />
+        <TextField
+          id="password"
+          type="password"
+          placeholder="Senha"
+          error={errors.password?.message}
+          {...register('password')}
+        />
 
-          <Button className="mt-2" isLoading={isLoading}>
-            Entrar
-          </Button>
-        </form>
-      </FormProvider>
+        <Button className="mt-2" isLoading={isLoading}>
+          Entrar
+        </Button>
+      </form>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
 
 import { storage } from '../services/storage';
 import { StorageKeys } from '../enums/StorageKeys';
-import { useMeQuery } from '../hooks/queries/useMeQuery';
+import { useMe } from '../hooks/queries/useMe';
 import { httpClient } from '../services/http/httpClient';
 import { ConditionalRender } from '@/view/components/ConditionalRender';
 import { Splash } from '@/view/components/Splash';
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     return !!token;
   });
 
-  const { isError, isFetching, isSuccess, remove } = useMeQuery(signedIn);
+  const { isError, isFetching, isSuccess, remove } = useMe(signedIn);
 
   const signIn = useCallback((accessToken: string) => {
     storage.set({

@@ -5,7 +5,7 @@ import { CrossCircledIcon } from '@radix-ui/react-icons';
 interface TextFieldCurrencyProps {
   error?: string;
   onChange?: (value: string) => void;
-  value?: string;
+  value?: string | number;
 }
 
 export function TextFieldCurrency({

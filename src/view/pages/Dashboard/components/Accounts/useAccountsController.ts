@@ -1,5 +1,6 @@
 import { useDashboard } from '@/app/hooks/context/useDashboard';
-import { useState } from 'react';
+import { useGetAllBanckAccounts } from '@/app/hooks/queries/useGetAllBanckAccounts';
+import { useMemo, useState } from 'react';
 
 export const useAccountsController = () => {
   const {
@@ -13,14 +14,25 @@ export const useAccountsController = () => {
     isEnd: false
   });
 
+  const { data, isLoading } = useGetAllBanckAccounts();
+
+  const currentBalance = useMemo(() => {
+    if (!data) return 0;
+
+    return data.reduce((acc, item) => {
+      return acc + item.currentBalance;
+    }, 0);
+  }, [data]);
+
   return {
     sliderState,
     setSliderState,
     areValuesVisible,
     handleToggleVisibleValues,
-    isLoading: false,
-    accounts: [],
+    isLoading,
+    accounts: data,
     handleToggleNewAccountDialog,
-    newAccountDialogOpen
+    newAccountDialogOpen,
+    currentBalance
   };
 };
