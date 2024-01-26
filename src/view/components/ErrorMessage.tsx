@@ -1,23 +1,17 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons';
-import { useFormContext } from 'react-hook-form';
+import { ConditionalRender } from './ConditionalRender';
 
 interface IErrorMessageProps {
-  field: string;
+  error?: string;
 }
 
-export function ErrorMessage({ field }: IErrorMessageProps) {
-  const {
-    formState: { errors }
-  } = useFormContext();
-
-  const error = errors?.[field]?.message as string;
-
-  if (!error) return null;
-
+export function ErrorMessage({ error }: IErrorMessageProps) {
   return (
-    <div className="flex gap-2 items-center mt-2 text-red-900">
-      <CrossCircledIcon />
-      <span className="text-xs">{error}</span>
-    </div>
+    <ConditionalRender condition={!error} fallback={null}>
+      <div className="flex gap-2 items-center mt-2 text-red-900">
+        <CrossCircledIcon />
+        <span className="text-xs">{error}</span>
+      </div>
+    </ConditionalRender>
   );
 }

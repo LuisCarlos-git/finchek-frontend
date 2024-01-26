@@ -1,13 +1,9 @@
 import * as RdxSelect from '@radix-ui/react-select';
 
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  CrossCircledIcon
-} from '@radix-ui/react-icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { cn } from '@/app/utils/cn';
-import { ConditionalRender } from './ConditionalRender';
 import { useState } from 'react';
+import { ErrorMessage } from './ErrorMessage';
 
 interface ISelectProps {
   className?: string;
@@ -83,12 +79,7 @@ export function Select({
           </RdxSelect.Content>
         </RdxSelect.Portal>
       </RdxSelect.Root>
-      <ConditionalRender condition={!error} fallback={null}>
-        <div className="flex gap-2 items-center mt-2 text-red-900">
-          <CrossCircledIcon />
-          <span className="text-xs">{error}</span>
-        </div>
-      </ConditionalRender>
+      <ErrorMessage error={error} />
     </div>
   );
 }

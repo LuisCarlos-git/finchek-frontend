@@ -1,10 +1,9 @@
 import { cn } from '@/app/utils/cn';
-import { ConditionalRender } from './ConditionalRender';
-import { CrossCircledIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 import { formatDate } from '@/app/utils/formatDate';
 import { Popover } from './Popover';
 import { DatePicker } from './DatePicker';
+import { ErrorMessage } from './ErrorMessage';
 
 interface IDatePickerProps {
   className?: string;
@@ -36,12 +35,7 @@ export function DatePickerField({ className, error }: IDatePickerProps) {
         </Popover.Content>
       </Popover.Root>
 
-      <ConditionalRender condition={!error} fallback={null}>
-        <div className="flex gap-2 items-center mt-2 text-red-900">
-          <CrossCircledIcon />
-          <span className="text-xs">{error}</span>
-        </div>
-      </ConditionalRender>
+      <ErrorMessage error={error} />
     </div>
   );
 }

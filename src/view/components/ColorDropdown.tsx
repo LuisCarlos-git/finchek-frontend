@@ -1,9 +1,9 @@
 import { cn } from '@/app/utils/cn';
 import { Dropdown } from './Dropdown';
-import { ConditionalRender } from './ConditionalRender';
-import { ChevronDownIcon, CrossCircledIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { ColorIcon } from '@/assets/icons/ColorIcon';
 import { useState } from 'react';
+import { ErrorMessage } from './ErrorMessage';
 
 interface IColorDropdownField {
   error?: string;
@@ -85,12 +85,7 @@ export function ColorDropdownField({
           ))}
         </Dropdown.Content>
       </Dropdown.Root>
-      <ConditionalRender condition={!error} fallback={null}>
-        <div className="flex gap-2 items-center mt-2 text-red-900">
-          <CrossCircledIcon />
-          <span className="text-xs">{error}</span>
-        </div>
-      </ConditionalRender>
+      <ErrorMessage error={error} />
     </div>
   );
 }
