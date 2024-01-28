@@ -1,4 +1,10 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 
 import {
   type IAuthProviderProps,
@@ -21,7 +27,13 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     return !!token;
   });
 
-  const { isError, isFetching, isSuccess, remove } = useMe(signedIn);
+  const {
+    isError,
+    isFetching,
+    isSuccess,
+    remove,
+    data: user
+  } = useMe(signedIn);
 
   const signIn = useCallback((accessToken: string) => {
     storage.set({
@@ -46,17 +58,19 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }, [signOut, isError]);
 
+  const value = useMemo(
+    () => ({
+      signedIn: isSuccess && signedIn,
+      signIn,
+      signOut,
+      user: user ?? null
+    }),
+    [isSuccess, signIn, signOut, signedIn, user]
+  );
+
   return (
     <ConditionalRender condition={isFetching} fallback={<Splash />}>
-      <AuthContext.Provider
-        value={{
-          signedIn: isSuccess && signedIn,
-          signIn,
-          signOut
-        }}
-      >
-        {children}
-      </AuthContext.Provider>
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     </ConditionalRender>
   );
 };

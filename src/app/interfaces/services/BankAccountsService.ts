@@ -1,4 +1,5 @@
 import { type BankAcountsType } from '@/app/enums/BankAccountsType';
+import { type IBankAccount } from '../entities/BankAccount';
 
 export interface ICreateBankAccount {
   name: string;
@@ -14,3 +15,5 @@ export interface IUpdateBankAccountParams {
   color: string;
   type: BankAcountsType;
 }
+
+export type IGetAllBankAccounts = IBankAccount[];

@@ -17,7 +17,7 @@ export function useAddNewAccountDialogController() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
     control,
     reset
   } = useForm<CreateOrUpdateBankAccountFormValues>({
@@ -61,6 +61,6 @@ export function useAddNewAccountDialogController() {
     errors,
     control,
     handleSubmit,
-    isLoading
+    isLoading: isLoading || isSubmitting
   };
 }

@@ -3,13 +3,13 @@ import { Dropdown } from './Dropdown';
 import { useAuth } from '@/app/hooks/context/useAuth';
 
 export const UserMenu = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
         <div className="w-12 h-12 rounded-full flex items-center justify-center bg-teal-0">
           <span className="text-sm text-teal-900 font-medium tracking-[-0.5px]">
-            LC
+            {user?.name.slice(0, 2).toLocaleUpperCase()}
           </span>
         </div>
       </Dropdown.Trigger>

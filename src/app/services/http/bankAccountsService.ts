@@ -1,10 +1,12 @@
 import {
   type IUpdateBankAccountParams,
-  type ICreateBankAccount
+  type ICreateBankAccount,
+  type IGetAllBankAccounts
 } from '@/app/interfaces/services/BankAccountsService';
-import { httpClient } from './httpClient';
+
 import { Endpoints } from '@/app/enums/Endpoints';
-import { type IBankAccount } from '@/app/interfaces/entities/BankAccount';
+
+import { httpClient } from './httpClient';
 
 class BankAccountsService {
   public async create(body: ICreateBankAccount) {
@@ -12,7 +14,7 @@ class BankAccountsService {
   }
 
   public async getAll() {
-    const response = await httpClient.get<IBankAccount[]>(
+    const response = await httpClient.get<IGetAllBankAccounts>(
       Endpoints.BANK_ACCOUNTS
     );
 

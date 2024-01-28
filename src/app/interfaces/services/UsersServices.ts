@@ -1,4 +1,3 @@
-export interface IUsersMeResponse {
-  name: string;
-  email: string;
-}
+import { type IUser } from '../entities/User';
+
+export interface IUsersMeResponse extends IUser {}
