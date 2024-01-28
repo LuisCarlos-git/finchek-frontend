@@ -21,7 +21,7 @@ export function useEditAccountDialog() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
     control,
     reset,
     setValue
@@ -59,11 +59,11 @@ export function useEditAccountDialog() {
           initialBalance: currencyStringToNumber(formValues.initialBalance),
           id: bankAccountToEdit.id
         });
-        toast.success('Conta editada com sucesso!');
-        handleToggleEditAccountDialog(null);
         await queryClient.invalidateQueries({
           queryKey: ['get-all-bank-accounts']
         });
+        handleToggleEditAccountDialog(null);
+        toast.success('Conta editada com sucesso!');
       } catch (e) {
         toast.error('Erro ao editar dados conta');
       }
@@ -77,6 +77,6 @@ export function useEditAccountDialog() {
     errors,
     control,
     handleSubmit,
-    isLoading
+    isLoading: isLoading || isSubmitting
   };
 }
