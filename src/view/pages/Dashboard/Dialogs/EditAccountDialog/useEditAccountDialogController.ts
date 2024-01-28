@@ -21,22 +21,12 @@ export function useEditAccountDialog() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors, isSubmitSuccessful, isSubmitting },
+    formState: { errors, isSubmitting },
     control,
-    reset,
     setValue
   } = useForm<CreateOrUpdateBankAccountFormValues>({
     resolver: zodResolver(schema)
   });
-
-  useEffect(() => {
-    reset({
-      color: undefined,
-      initialBalance: '0',
-      name: undefined,
-      type: undefined
-    });
-  }, [reset, isSubmitSuccessful]);
 
   useEffect(() => {
     if (!bankAccountToEdit) return;

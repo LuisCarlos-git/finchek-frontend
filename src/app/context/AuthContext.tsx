@@ -17,6 +17,7 @@ import { useMe } from '../hooks/queries/useMe';
 import { httpClient } from '../services/http/httpClient';
 import { ConditionalRender } from '@/view/components/ConditionalRender';
 import { Splash } from '@/view/components/Splash';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 
@@ -35,6 +36,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     data: user
   } = useMe(signedIn);
 
+  const queryClient = useQueryClient();
+
   const signIn = useCallback((accessToken: string) => {
     storage.set({
       key: StorageKeys.ACCESS_TOKEN,
@@ -50,7 +53,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     storage.remove(StorageKeys.ACCESS_TOKEN);
     remove();
     setSignedIn(false);
-  }, [remove]);
+    queryClient.clear();
+  }, [queryClient, remove]);
 
   useEffect(() => {
     if (isError) {

@@ -17,7 +17,7 @@ export function useAddNewAccountDialogController() {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors, isSubmitSuccessful, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     control,
     reset
   } = useForm<CreateOrUpdateBankAccountFormValues>({
@@ -26,9 +26,9 @@ export function useAddNewAccountDialogController() {
 
   useEffect(() => {
     reset({
-      color: undefined,
+      name: '',
       initialBalance: '0',
-      name: undefined,
+      color: undefined,
       type: undefined
     });
   }, [reset, isSubmitSuccessful]);
