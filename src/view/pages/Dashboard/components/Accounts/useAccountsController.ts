@@ -1,5 +1,5 @@
 import { useDashboard } from '@/app/hooks/context/useDashboard';
-import { useGetAllBanckAccounts } from '@/app/hooks/queries/useGetAllBanckAccounts';
+import { useGetAllBankAccounts } from '@/app/hooks/queries/useGetAllBankAccounts';
 import { useMemo, useState } from 'react';
 
 export const useAccountsController = () => {
@@ -15,7 +15,7 @@ export const useAccountsController = () => {
     isEnd: false
   });
 
-  const { data, isLoading } = useGetAllBanckAccounts();
+  const { data, isLoading } = useGetAllBankAccounts();
 
   const currentBalance = useMemo(() => {
     if (!data) return 0;
