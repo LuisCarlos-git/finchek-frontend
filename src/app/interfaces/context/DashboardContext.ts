@@ -1,7 +1,6 @@
 import { type ReactNode } from 'react';
 import { type IBankAccount } from '../entities/BankAccount';
-
-export type TransactionType = 'INCOME' | 'EXPENSE';
+import { type TransactionType } from '@/app/enums/TransactionType';
 
 export interface IDashboardProvider {
   children: ReactNode;

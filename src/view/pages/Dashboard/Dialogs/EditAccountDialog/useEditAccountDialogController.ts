@@ -1,7 +1,7 @@
 import {
   schema,
   type CreateOrUpdateBankAccountFormValues
-} from '@/app/formSchemas/createBankAccount';
+} from '@/app/formSchemas/createOrUpdateBankAccount';
 import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { useDeleteBankAccount } from '@/app/hooks/queries/useDeleteBankAccount';
 import { useInvalidateBankAccounts } from '@/app/hooks/queries/useInvalidateBankAccounts';

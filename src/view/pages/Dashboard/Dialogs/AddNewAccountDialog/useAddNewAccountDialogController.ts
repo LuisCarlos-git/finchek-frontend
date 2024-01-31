@@ -1,7 +1,7 @@
 import {
   schema,
   type CreateOrUpdateBankAccountFormValues
-} from '@/app/formSchemas/createBankAccount';
+} from '@/app/formSchemas/createOrUpdateBankAccount';
 import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { useCreateBankAccount } from '@/app/hooks/queries/useCreateBankAccount';
 import { currencyStringToNumber } from '@/app/utils/currencyStringToNumber';

@@ -8,10 +8,21 @@ import { ErrorMessage } from './ErrorMessage';
 interface IDatePickerProps {
   className?: string;
   error?: string;
+  onChange?: (date: Date) => void;
+  value?: Date;
 }
 
-export function DatePickerField({ className, error }: IDatePickerProps) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export function DatePickerField({
+  className,
+  error,
+  value,
+  onChange
+}: IDatePickerProps) {
+  const [selectedDate, setSelectedDate] = useState(value ?? new Date());
+  const handleChange = (date: Date) => {
+    setSelectedDate(date);
+    onChange?.(date);
+  };
   return (
     <div>
       <Popover.Root>
@@ -31,7 +42,7 @@ export function DatePickerField({ className, error }: IDatePickerProps) {
           </button>
         </Popover.Trigger>
         <Popover.Content>
-          <DatePicker value={selectedDate} onChange={setSelectedDate} />
+          <DatePicker value={selectedDate} onChange={handleChange} />
         </Popover.Content>
       </Popover.Root>
 

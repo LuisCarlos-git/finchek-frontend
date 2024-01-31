@@ -4,14 +4,20 @@ import { Select } from '@/view/components/Select';
 import { TextField } from '@/view/components/TextField';
 import { TextFieldCurrency } from '@/view/components/TextFieldCurrency';
 import { useNewTransactionDialogController } from './useNewTransactionDialogController';
-import { BankAcountsType } from '@/app/enums/BankAccountsType';
 import { DatePickerField } from '@/view/components/DatePickerField';
+import { Controller } from 'react-hook-form';
 
 export function NewTransactionDialog() {
   const {
     handleToggleNewTransactionDialog,
     newTransactionDialogOpen,
-    isExpense
+    isExpense,
+    handleSubmit,
+    register,
+    control,
+    categories,
+    bankAccounts,
+    errors
   } = useNewTransactionDialogController();
 
   return (
@@ -22,11 +28,22 @@ export function NewTransactionDialog() {
         handleToggleNewTransactionDialog(null);
       }}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <div className="flex items-center gap-2">
             <span className="text-lg text-gray-600 tracking-[0.5px]">R$</span>
-            <TextFieldCurrency />
+            <Controller
+              name="value"
+              defaultValue="0"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextFieldCurrency
+                  error={fieldState.error?.message}
+                  onChange={field.onChange}
+                  value={field.value}
+                />
+              )}
+            />
           </div>
           <span className="text-xs text-gray-600 tracking-[0.5px]">
             Valor {isExpense ? 'da despesa' : 'da receita'}
@@ -35,26 +52,49 @@ export function NewTransactionDialog() {
         <div className="mt-10 space-y-2">
           <TextField
             type="text"
-            name="name"
             placeholder={`Nome ${isExpense ? 'da despesa' : 'da receita'}`}
+            error={errors.name?.message}
+            {...register('name')}
           />
-          <Select
-            placeholder="Categoria"
-            options={[
-              { value: BankAcountsType.INVESTMENT, label: 'Investimento' },
-              { value: BankAcountsType.CHECKING, label: 'Conta Corrente' },
-              { value: BankAcountsType.CASH, label: 'Dinheiro físico' }
-            ]}
+          <Controller
+            control={control}
+            name="categoryId"
+            render={({ field, fieldState }) => (
+              <Select
+                error={fieldState.error?.message}
+                onChange={field.onChange}
+                value={field.value}
+                placeholder="Categoria"
+                options={categories}
+              />
+            )}
           />
-          <Select
-            placeholder={isExpense ? 'Pager com' : 'Receber com'}
-            options={[
-              { value: BankAcountsType.INVESTMENT, label: 'Investimento' },
-              { value: BankAcountsType.CHECKING, label: 'Conta Corrente' },
-              { value: BankAcountsType.CASH, label: 'Dinheiro físico' }
-            ]}
+
+          <Controller
+            control={control}
+            name="bankAccountId"
+            render={({ field, fieldState }) => (
+              <Select
+                error={fieldState.error?.message}
+                onChange={field.onChange}
+                value={field.value}
+                placeholder={isExpense ? 'Pagar com' : 'Receber com'}
+                options={bankAccounts}
+              />
+            )}
           />
-          <DatePickerField />
+          <Controller
+            control={control}
+            name="date"
+            defaultValue={new Date()}
+            render={({ field, fieldState }) => (
+              <DatePickerField
+                error={fieldState.error?.message}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
         </div>
 
         <Button className="w-full mt-8" type="submit">
