@@ -6,7 +6,6 @@ import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { useCreateBankAccount } from '@/app/hooks/queries/useCreateBankAccount';
 import { currencyStringToNumber } from '@/app/utils/currencyStringToNumber';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -33,7 +32,6 @@ export function useAddNewAccountDialogController() {
     });
   }, [reset, isSubmitSuccessful]);
 
-  const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useCreateBankAccount();
 
   const handleSubmit = hookFormHandleSubmit(
@@ -42,9 +40,6 @@ export function useAddNewAccountDialogController() {
         await mutateAsync({
           ...formValues,
           initialBalance: currencyStringToNumber(formValues.initialBalance)
-        });
-        await queryClient.invalidateQueries({
-          queryKey: ['get-all-bank-accounts']
         });
         toast.success('Conta cadastrada com sucesso!');
         handleToggleNewAccountDialog();

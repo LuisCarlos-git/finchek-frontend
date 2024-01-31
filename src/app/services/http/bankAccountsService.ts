@@ -30,6 +30,10 @@ class BankAccountsService {
 
     return response;
   }
+
+  public async delete(id: string) {
+    return await httpClient.delete(`${Endpoints.BANK_ACCOUNTS}/${id}`);
+  }
 }
 
 export const bankAccountsService = new BankAccountsService();

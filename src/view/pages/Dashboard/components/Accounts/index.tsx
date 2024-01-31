@@ -102,6 +102,7 @@ export const Accounts = () => {
                       balance={account.initialBalance}
                       color={account.color}
                       name={account.name}
+                      type={account.type}
                     />
                   </SwiperSlide>
                 ))}

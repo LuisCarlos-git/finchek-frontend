@@ -2,12 +2,12 @@ import { bankAccountsService } from '@/app/services/http/bankAccountsService';
 import { useMutation } from '@tanstack/react-query';
 import { useInvalidateBankAccounts } from './useInvalidateBankAccounts';
 
-export function useCreateBankAccount() {
+export function useDeleteBankAccount() {
   const { invalidateBankAccounts } = useInvalidateBankAccounts();
 
   return useMutation({
-    mutationKey: ['create-bank-account'],
-    mutationFn: bankAccountsService.create,
+    mutationKey: ['delete-bank-account'],
+    mutationFn: bankAccountsService.delete,
     onSuccess: async () => {
       await invalidateBankAccounts();
     }

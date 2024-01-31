@@ -1,3 +1,4 @@
+import { type BankAcountsType } from '@/app/enums/BankAccountsType';
 import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { cn } from '@/app/utils/cn';
 import { formatCurrencyToBRL } from '@/app/utils/formatCurrencyToBRL';
@@ -7,9 +8,15 @@ interface AccountCardProps {
   name: string;
   color: string;
   balance: number;
+  type: BankAcountsType;
 }
 
-export const AccountCart = ({ balance, color, name }: AccountCardProps) => {
+export const AccountCart = ({
+  balance,
+  color,
+  name,
+  type
+}: AccountCardProps) => {
   const { areValuesVisible } = useDashboard();
   return (
     <div
@@ -19,7 +26,7 @@ export const AccountCart = ({ balance, color, name }: AccountCardProps) => {
       }}
     >
       <div>
-        <BankAccountTypeIcon type="INVESTMENT" />
+        <BankAccountTypeIcon type={type} />
         <span className="text-gray-800 font-medium tracking-[-0.5px] block mt-4">
           {name}
         </span>
