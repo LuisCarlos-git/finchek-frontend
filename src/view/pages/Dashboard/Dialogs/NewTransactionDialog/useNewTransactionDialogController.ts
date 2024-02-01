@@ -8,7 +8,7 @@ import { useGetAllBankAccounts } from '@/app/hooks/queries/useGetAllBankAccounts
 import { useGetAllCategories } from '@/app/hooks/queries/useGetAllCategories';
 import { currencyStringToNumber } from '@/app/utils/currencyStringToNumber';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -23,10 +23,21 @@ export function useNewTransactionDialogController() {
     register,
     handleSubmit: hookFormSubmit,
     control,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+    reset
   } = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionSchema)
   });
+
+  useEffect(() => {
+    reset({
+      bankAccountId: undefined,
+      categoryId: undefined,
+      name: '',
+      value: '0',
+      date: new Date()
+    });
+  }, [reset, isSubmitSuccessful]);
 
   const { data: categories } = useGetAllCategories();
   const { data: bankAccounts } = useGetAllBankAccounts();
