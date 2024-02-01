@@ -1,9 +1,3 @@
-import { type TransactionType } from '@/app/enums/TransactionType';
+import { type ICategory } from '../entities/Category';
 
-export type IGetAllCategories = Array<{
-  id: string;
-  userId: string;
-  name: string;
-  icon: string;
-  type: TransactionType;
-}>;
+export type IGetAllCategories = ICategory[];

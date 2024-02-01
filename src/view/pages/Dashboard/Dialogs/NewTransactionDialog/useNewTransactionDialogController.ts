@@ -6,6 +6,7 @@ import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { useGetAllBankAccounts } from '@/app/hooks/queries/useGetAllBankAccounts';
 import { useGetAllCategories } from '@/app/hooks/queries/useGetAllCategories';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 export function useNewTransactionDialogController() {
@@ -33,6 +34,26 @@ export function useNewTransactionDialogController() {
 
   const isExpense = transactionType === 'EXPENSE';
 
+  const categoriesMapper = useMemo(
+    () =>
+      categories
+        ?.filter((category) => category.type === transactionType)
+        .map((category) => ({
+          value: category.id,
+          label: category.name
+        })) ?? [],
+    [categories, transactionType]
+  );
+
+  const bankAccountsMapper = useMemo(
+    () =>
+      bankAccounts.map((bankAccount) => ({
+        value: bankAccount.id,
+        label: bankAccount.name
+      })) ?? [],
+    [bankAccounts]
+  );
+
   return {
     handleToggleNewTransactionDialog,
     newTransactionDialogOpen,
@@ -41,15 +62,7 @@ export function useNewTransactionDialogController() {
     register,
     control,
     errors,
-    bankAccounts:
-      bankAccounts.map((bankAccount) => ({
-        value: bankAccount.id,
-        label: bankAccount.name
-      })) ?? [],
-    categories:
-      categories?.map((category) => ({
-        value: category.id,
-        label: category.name
-      })) ?? []
+    bankAccounts: bankAccountsMapper,
+    categories: categoriesMapper
   };
 }
