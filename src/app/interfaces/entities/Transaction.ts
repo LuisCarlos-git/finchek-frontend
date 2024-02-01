@@ -5,6 +5,9 @@ export interface ITransaction {
   name: string;
   type: TransactionType;
   value: number;
-  bankAccountId: string;
-  categoryId: string;
+  category?: {
+    id: string;
+    name: string;
+    icon: string;
+  };
 }

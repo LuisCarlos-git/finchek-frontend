@@ -39,13 +39,12 @@ export function useNewTransactionDialogController() {
     async (formValues: TransactionFormValues) => {
       if (!transactionType) return;
       try {
-        const response = await createTransaction({
+        await createTransaction({
           ...formValues,
           date: new Date(formValues.date).toISOString(),
           type: transactionType,
           value: currencyStringToNumber(formValues.value)
         });
-        console.log({ response });
         handleToggleNewTransactionDialog(null);
         toast.success(
           isExpense

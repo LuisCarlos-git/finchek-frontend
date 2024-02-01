@@ -1,3 +1,4 @@
+import { type TransactionType } from '@/app/enums/TransactionType';
 import { type ITransaction } from '../entities/Transaction';
 
 export interface ICreateOrUpdateTransactionRequest extends ITransaction {}
@@ -10,5 +11,6 @@ export interface ITransactionResponse extends ITransaction {
 export interface IGetAllTransactionsParams {
   month: number;
   year: number;
-  bankAccountId: string;
+  bankAccountId?: string;
+  type?: TransactionType;
 }

@@ -1,3 +1,4 @@
+import { useGetAllBankAccounts } from '@/app/hooks/queries/useGetAllBankAccounts';
 import { useCallback, useState } from 'react';
 
 export function useFiltersDialogController() {
@@ -13,6 +14,8 @@ export function useFiltersDialogController() {
     );
   }, []);
 
+  const { data: accounts } = useGetAllBankAccounts();
+
   const handleChangeYear = useCallback((step: number) => {
     setSelectedYear((prev) => prev + step);
   }, []);
@@ -21,6 +24,7 @@ export function useFiltersDialogController() {
     selectedBankAccountId,
     handleSelectbankAccount,
     selectedYear,
-    handleChangeYear
+    handleChangeYear,
+    accounts
   };
 }

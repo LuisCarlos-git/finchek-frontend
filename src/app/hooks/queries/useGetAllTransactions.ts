@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export function useGetAllTransactions(params: IGetAllTransactionsParams) {
   const query = useQuery({
-    queryKey: ['get-all-transactions', { params }],
+    queryKey: ['get-all-transactions'],
     queryFn: async () => await transactionsService.getAll(params)
   });
 

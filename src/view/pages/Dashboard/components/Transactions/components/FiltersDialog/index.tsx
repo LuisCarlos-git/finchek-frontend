@@ -9,27 +9,13 @@ interface IFiltersDialogProps {
   onClose: () => void;
 }
 
-const bankAccountsMocked = [
-  {
-    id: '123',
-    name: 'Nubank'
-  },
-  {
-    id: '1234',
-    name: 'XP Investimentos'
-  },
-  {
-    id: '12345',
-    name: 'Binance'
-  }
-];
-
 export function FiltersDialog({ onClose, open }: IFiltersDialogProps) {
   const {
     handleSelectbankAccount,
     selectedBankAccountId,
     handleChangeYear,
-    selectedYear
+    selectedYear,
+    accounts
   } = useFiltersDialogController();
 
   return (
@@ -39,7 +25,7 @@ export function FiltersDialog({ onClose, open }: IFiltersDialogProps) {
           Conta
         </span>
         <div className="space-y-2 mt-2">
-          {bankAccountsMocked.map((item) => (
+          {accounts.map((item) => (
             <button
               key={item.id}
               onClick={() => {

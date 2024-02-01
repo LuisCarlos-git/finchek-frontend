@@ -15,6 +15,7 @@ import { TransactionsSpinner } from './components/TransactionsSpinner';
 import { TransactionsTypeDropdown } from './components/TransactionsDropdown';
 import { FiltersDialog } from './components/FiltersDialog';
 import { formatDate } from '@/app/utils/formatDate';
+import { TransactionType } from '@/app/enums/TransactionType';
 
 export const Transactions = () => {
   const {
@@ -23,7 +24,9 @@ export const Transactions = () => {
     transactions,
     isFetching,
     isOpenFilters,
-    handleToggleDialogFilters
+    filters,
+    handleToggleDialogFilters,
+    handleChangeFilters
   } = useTransactionsController();
   return (
     <section className="bg-gray-100 h-full rounded-2xl p-4 md:p-10 md:px-4 md:py-8 flex flex-col">
@@ -44,7 +47,15 @@ export const Transactions = () => {
             </button>
           </div>
           <div className="mt-6 relative">
-            <Swiper slidesPerView={3} centeredSlides>
+            <Swiper
+              slidesPerView={3}
+              centeredSlides
+              initialSlide={filters.month}
+              onSlideChange={(swiper) => {
+                if (filters.month === swiper.activeIndex) return;
+                handleChangeFilters({ month: swiper.activeIndex });
+              }}
+            >
               {MONTHS.map((month, index) => (
                 <SwiperSlide key={month}>
                   {({ isActive }) => (
@@ -76,13 +87,15 @@ export const Transactions = () => {
                   className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
                 >
                   <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon
-                      type={
-                        transaction.type.toLocaleLowerCase() as
-                          | 'income'
-                          | 'expense'
-                      }
-                    />
+                    {transaction.type === TransactionType.INCOME && (
+                      <CategoryIcon type="income" />
+                    )}
+                    {transaction.type === TransactionType.EXPENSE && (
+                      <CategoryIcon
+                        type="expense"
+                        category={transaction.category?.icon as any}
+                      />
+                    )}
                     <div>
                       <strong className="tracking-[-0.5px] font-bold block">
                         {transaction.name}
@@ -101,7 +114,7 @@ export const Transactions = () => {
                     )}
                   >
                     {transaction.type === 'INCOME' &&
-                      formatCurrencyToBRL(transaction.value)}
+                      `+${formatCurrencyToBRL(transaction.value)}`}
                     {transaction.type === 'EXPENSE' &&
                       `-${formatCurrencyToBRL(transaction.value)}`}
                   </span>

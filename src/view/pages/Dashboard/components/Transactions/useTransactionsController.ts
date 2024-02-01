@@ -1,11 +1,23 @@
 import { useDashboard } from '@/app/hooks/context/useDashboard';
 import { useGetAllTransactions } from '@/app/hooks/queries/useGetAllTransactions';
-import { useCallback, useState } from 'react';
+import { type IGetAllTransactionsParams } from '@/app/interfaces/services/TransactionsService';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboard();
 
   const [isOpenFilters, setIsOpenFilters] = useState(false);
+  const [filters, setFilters] = useState<IGetAllTransactionsParams>({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear()
+  });
+
+  const handleChangeFilters = useCallback(
+    (filters: Partial<IGetAllTransactionsParams>) => {
+      setFilters((prev) => ({ ...prev, ...filters }));
+    },
+    []
+  );
 
   const handleToggleDialogFilters = useCallback(() => {
     setIsOpenFilters((prev) => !prev);
@@ -14,12 +26,13 @@ export function useTransactionsController() {
   const {
     data: transactions,
     isLoading,
-    isFetching
-  } = useGetAllTransactions({
-    month: 1,
-    year: 2024,
-    bankAccountId: 'e0311546-4a5b-4d2b-b1fd-f1c9397e680b'
-  });
+    isFetching,
+    refetch
+  } = useGetAllTransactions(filters);
+
+  useEffect(() => {
+    void refetch();
+  }, [refetch, filters]);
 
   return {
     areValuesVisible,
@@ -27,6 +40,8 @@ export function useTransactionsController() {
     isFetching,
     transactions,
     isOpenFilters,
-    handleToggleDialogFilters
+    handleToggleDialogFilters,
+    handleChangeFilters,
+    filters
   };
 }
