@@ -3,5 +3,6 @@ export const enum Endpoints {
   SIGNIN = '/auth/signin',
   BANK_ACCOUNTS = '/bank-accounts',
   ME = '/users/me',
-  CATEGORIES = '/categories'
+  CATEGORIES = '/categories',
+  TRANSACTIONS = '/transactions'
 }

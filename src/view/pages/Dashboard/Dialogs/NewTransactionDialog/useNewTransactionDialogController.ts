@@ -3,11 +3,14 @@ import {
   transactionSchema
 } from '@/app/formSchemas/transactionSchema';
 import { useDashboard } from '@/app/hooks/context/useDashboard';
+import { useCreateTransaction } from '@/app/hooks/queries/useCreateTransaction';
 import { useGetAllBankAccounts } from '@/app/hooks/queries/useGetAllBankAccounts';
 import { useGetAllCategories } from '@/app/hooks/queries/useGetAllCategories';
+import { currencyStringToNumber } from '@/app/utils/currencyStringToNumber';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 export function useNewTransactionDialogController() {
   const {
@@ -20,7 +23,7 @@ export function useNewTransactionDialogController() {
     register,
     handleSubmit: hookFormSubmit,
     control,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionSchema)
   });
@@ -28,11 +31,36 @@ export function useNewTransactionDialogController() {
   const { data: categories } = useGetAllCategories();
   const { data: bankAccounts } = useGetAllBankAccounts();
 
-  const handleSubmit = hookFormSubmit((formValues: TransactionFormValues) => {
-    console.log({ formValues });
-  });
+  const { mutateAsync: createTransaction, isLoading } = useCreateTransaction();
 
   const isExpense = transactionType === 'EXPENSE';
+
+  const handleSubmit = hookFormSubmit(
+    async (formValues: TransactionFormValues) => {
+      if (!transactionType) return;
+      try {
+        const response = await createTransaction({
+          ...formValues,
+          date: new Date(formValues.date).toISOString(),
+          type: transactionType,
+          value: currencyStringToNumber(formValues.value)
+        });
+        console.log({ response });
+        handleToggleNewTransactionDialog(null);
+        toast.success(
+          isExpense
+            ? 'Despesa cadastrada com sucesso!'
+            : 'Receita cadastrada com sucesso!!'
+        );
+      } catch (error) {
+        toast.error(
+          isExpense
+            ? 'Falha ao cadastrar despesa!'
+            : 'Falha ao cadastrar receita!'
+        );
+      }
+    }
+  );
 
   const categoriesMapper = useMemo(
     () =>
@@ -63,6 +91,7 @@ export function useNewTransactionDialogController() {
     control,
     errors,
     bankAccounts: bankAccountsMapper,
-    categories: categoriesMapper
+    categories: categoriesMapper,
+    isLoading: isLoading || isSubmitting
   };
 }

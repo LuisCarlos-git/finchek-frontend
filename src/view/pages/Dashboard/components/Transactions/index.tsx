@@ -14,6 +14,7 @@ import { EmptyState } from './components/EmptyState';
 import { TransactionsSpinner } from './components/TransactionsSpinner';
 import { TransactionsTypeDropdown } from './components/TransactionsDropdown';
 import { FiltersDialog } from './components/FiltersDialog';
+import { formatDate } from '@/app/utils/formatDate';
 
 export const Transactions = () => {
   const {
@@ -69,25 +70,43 @@ export const Transactions = () => {
             fallback={<EmptyState />}
           >
             <div className="mt-4 space-y-2 flex-1 overflow-auto">
-              <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                <div className="flex-1 flex items-center gap-3">
-                  <CategoryIcon type="income" />
-                  <div>
-                    <strong className="tracking-[-0.5px] font-bold block">
-                      Almoço
-                    </strong>
-                    <span className="text-sm text-gray-600">12/12/2022</span>
-                  </div>
-                </div>
-                <span
-                  className={cn(
-                    'font-medium tracking-[-0.5px] text-teal-800',
-                    !areValuesVisible && 'blur-sm'
-                  )}
+              {transactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
                 >
-                  {formatCurrencyToBRL(1000)}
-                </span>
-              </div>
+                  <div className="flex-1 flex items-center gap-3">
+                    <CategoryIcon
+                      type={
+                        transaction.type.toLocaleLowerCase() as
+                          | 'income'
+                          | 'expense'
+                      }
+                    />
+                    <div>
+                      <strong className="tracking-[-0.5px] font-bold block">
+                        {transaction.name}
+                      </strong>
+                      <span className="text-sm text-gray-600">
+                        {formatDate(new Date(transaction.date))}
+                      </span>
+                    </div>
+                  </div>
+                  <span
+                    className={cn(
+                      'font-medium tracking-[-0.5px]',
+                      transaction.type === 'INCOME' && 'text-teal-800',
+                      transaction.type === 'EXPENSE' && 'text-red-800',
+                      !areValuesVisible && 'blur-sm'
+                    )}
+                  >
+                    {transaction.type === 'INCOME' &&
+                      formatCurrencyToBRL(transaction.value)}
+                    {transaction.type === 'EXPENSE' &&
+                      `-${formatCurrencyToBRL(transaction.value)}`}
+                  </span>
+                </div>
+              ))}
             </div>
           </ConditionalRender>
         </ConditionalRender>

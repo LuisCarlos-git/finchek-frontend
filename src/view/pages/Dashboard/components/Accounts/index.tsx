@@ -99,7 +99,7 @@ export const Accounts = () => {
                     }}
                   >
                     <AccountCart
-                      balance={account.initialBalance}
+                      balance={account.currentBalance}
                       color={account.color}
                       name={account.name}
                       type={account.type}

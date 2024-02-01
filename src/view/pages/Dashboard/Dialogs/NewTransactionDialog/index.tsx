@@ -17,7 +17,8 @@ export function NewTransactionDialog() {
     control,
     categories,
     bankAccounts,
-    errors
+    errors,
+    isLoading
   } = useNewTransactionDialogController();
 
   return (
@@ -97,7 +98,7 @@ export function NewTransactionDialog() {
           />
         </div>
 
-        <Button className="w-full mt-8" type="submit">
+        <Button isLoading={isLoading} className="w-full mt-8" type="submit">
           Criar
         </Button>
       </form>
