@@ -11,8 +11,7 @@ export function useCreateTransaction() {
     mutationKey: ['create-transaction'],
     mutationFn: transactionsService.create,
     onSuccess: async () => {
-      await invalidateBankAccounts();
-      await invalidateTransactions();
+      await Promise.all([invalidateBankAccounts(), invalidateTransactions()]);
     }
   });
 }

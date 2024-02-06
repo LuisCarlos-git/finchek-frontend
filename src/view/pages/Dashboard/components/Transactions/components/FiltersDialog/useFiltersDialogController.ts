@@ -3,14 +3,14 @@ import { useCallback, useState } from 'react';
 
 export function useFiltersDialogController() {
   const [selectedBankAccountId, setSelectedBankAccountId] = useState<
-    string | null
-  >(null);
+    string | undefined
+  >();
 
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   const handleSelectbankAccount = useCallback((bankAccountId: string) => {
     setSelectedBankAccountId((prev) =>
-      bankAccountId === prev ? null : bankAccountId
+      bankAccountId === prev ? undefined : bankAccountId
     );
   }, []);
 

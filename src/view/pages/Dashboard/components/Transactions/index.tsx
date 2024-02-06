@@ -37,11 +37,19 @@ export const Transactions = () => {
         <FiltersDialog
           open={isOpenFilters}
           onClose={handleToggleDialogFilters}
+          onFilter={({ bankAccountId, year }) => {
+            handleChangeFilters({ bankAccountId, year });
+          }}
         />
 
         <header>
           <div className="flex justify-between w-full items-center">
-            <TransactionsTypeDropdown />
+            <TransactionsTypeDropdown
+              onSelect={(type) => {
+                handleChangeFilters({ type });
+              }}
+              activeFilter={filters.type}
+            />
             <button onClick={handleToggleDialogFilters}>
               <FilterIcon />
             </button>

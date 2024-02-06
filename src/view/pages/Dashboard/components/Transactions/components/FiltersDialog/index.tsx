@@ -7,9 +7,17 @@ import { cn } from '@/app/utils/cn';
 interface IFiltersDialogProps {
   open: boolean;
   onClose: () => void;
+  onFilter: (filters: {
+    bankAccountId: string | undefined;
+    year: number;
+  }) => void;
 }
 
-export function FiltersDialog({ onClose, open }: IFiltersDialogProps) {
+export function FiltersDialog({
+  onClose,
+  open,
+  onFilter
+}: IFiltersDialogProps) {
   const {
     handleSelectbankAccount,
     selectedBankAccountId,
@@ -68,7 +76,19 @@ export function FiltersDialog({ onClose, open }: IFiltersDialogProps) {
         </div>
       </div>
 
-      <Button className="w-full mt-10">Aplicar Filtros</Button>
+      <Button
+        onClick={() => {
+          onFilter({
+            bankAccountId: selectedBankAccountId ?? undefined,
+            year: selectedYear
+          });
+
+          onClose();
+        }}
+        className="w-full mt-10"
+      >
+        Aplicar Filtros
+      </Button>
     </Dialog>
   );
 }
