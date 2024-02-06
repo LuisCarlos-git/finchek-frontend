@@ -30,7 +30,7 @@ export function Dialog({
         />
         <RdxDialog.Content
           className={cn(
-            'bg-white p-6 space-y-10 rounded-2xl z-[51] shadow-md w-full max-w-[400px] outline-none',
+            'bg-white p-6 space-y-10 rounded-2xl z-[51] shadow-md w-full md:max-w-[400px] max-w-[350px] outline-none',
             'fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2',
             'data-[state=open]:animate-content-show',
             'data-[state=closed]:animate-content-close'
